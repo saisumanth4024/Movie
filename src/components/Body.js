@@ -3,10 +3,10 @@ import Login from "./Login";
 import Browse from "./Browse";
 import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
+import FormikLogin from "./FormikLogin.js";
 
 const Body = () => {
   //   console.log(React);
-  console.log(Login);
 
   const appRouter = createBrowserRouter([
     {
