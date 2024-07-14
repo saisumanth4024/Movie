@@ -4,42 +4,36 @@ import { checkValidateData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { addUser, removeUser } from "../utils/userSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { USER_AVATAR } from "../utils/constant";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  // console.log(auth);
+  const dispatch = useDispatch();
+  // dispatch(addUser("add user"));
+
+  const navigate = useNavigate();
 
   const email = useRef(null);
   const password = useRef(null);
   const userName = useRef(null);
-  // console.log(auth);
-
-  // const sai = function () {
-  //   return;
-  // };
-
-  // console.log(sai());
-  // console.log(userName);
-  // console.log(email);
 
   const handleButtonClick = () => {
-    // console.log("Sai");
-    // console.log("email:", email.current.value);
-    // console.log(userName);
     const userNameValue =
       userName.current === null ? "sai" : userName.current.value;
-    // console.log(userNameValue);
     const result = checkValidateData(
       email.current.value,
       password.current.value,
       userNameValue
     );
-    // console.log(result);
     setErrorMessage(result);
     if (result) return;
 
@@ -52,7 +46,19 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          // console.log("user", user);
+          updateProfile(user, {
+            displayName: userNameValue,
+            photoURL: USER_AVATAR,
+          })
+            .then((users) => {
+              // console.log("updated users:", users);
+              const { uid, email, displayName, photoURL } = user;
+              dispatch(addUser({ uid, email, displayName, photoURL }));
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -68,8 +74,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          // ...
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -84,12 +88,9 @@ const Login = () => {
   };
 
   const toggleSignInForm = () => {
-    // setIsSignInForm(!isSignInForm);
-    // this.setState((prev)=>{
-    // })
     setIsSignInForm((prev) => !prev);
   };
-  // console.log(isSignInForm);
+
   return (
     <div className="relative">
       <Header />

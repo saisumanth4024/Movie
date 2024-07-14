@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Login from "./Login";
 import Browse from "./Browse";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, useNavigate } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
-import FormikLogin from "./FormikLogin.js";
+import { useDispatch } from "react-redux";
 
 const Body = () => {
   //   console.log(React);
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   const appRouter = createBrowserRouter([
     {
