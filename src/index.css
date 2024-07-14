@@ -5,3 +5,11 @@
 *{
     font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+
+  }
+.hide-scrollbar::-webkit-scrollbar-track{
+    background-color: blue;
+}
