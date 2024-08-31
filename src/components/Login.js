@@ -10,7 +10,7 @@ import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { USER_AVATAR } from "../utils/constant";
+import { BG_NETFLIX, USER_AVATAR } from "../utils/constant";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -94,10 +94,7 @@ const Login = () => {
   return (
     <div className="relative">
       <Header />
-      <img
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/a56dc29b-a0ec-4f6f-85fb-50df0680f80f/2f8ae902-8efe-49bb-9a91-51b6fcc8bf46/IN-en-20240617-popsignuptwoweeks-perspective_alpha_website_small.jpg"
-        alt="netflix_backLogo"
-      />
+      <img src={BG_NETFLIX} alt="netflix_backLogo" />
       <form
         onSubmit={onSubmitForm}
         className="p-12 absolute mx-auto top-1/4 left-0 right-0 w-3/12 bg-black/[.6]  text-white"
